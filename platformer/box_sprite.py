@@ -12,6 +12,6 @@ class BoxSprite(pygame.sprite.Sprite):
     self.position = (x*self.BOX_SIZE,y*self.BOX_SIZE)
     self.rect.topleft = self.position
 
-  def update(self, deltat):
+  def update(self):
     self.rect = self.image.get_rect()
     self.rect.topleft = self.position
