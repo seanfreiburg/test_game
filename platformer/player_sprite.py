@@ -9,10 +9,12 @@ class PlayerSprite(pygame.sprite.Sprite):
 
   def __init__(self,image,position):
     pygame.sprite.Sprite.__init__(self)
-    self.src_image = pygame.image.load(image)
+    self.src_image = pygame.transform.scale(pygame.image.load(image), (64,64))
     self.position = position
     self.speed = self.direction = 0
     self.k_left = self.k_right = self.k_up = self.k_down = 0
+    self.image = self.src_image
+    self.rect = self.image.get_rect()
 
   def update(self):
     self.speed += (self.k_up + self.k_down)

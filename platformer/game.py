@@ -7,7 +7,7 @@ import pygame
 
 
 class Game():
-  PLAYER_IMAGE = 'car.png'
+  PLAYER_IMAGE = 'red.png'
   PLAYER_START_LOCATION = (100,100)
   MAP_FILE = 'map.txt'
 
