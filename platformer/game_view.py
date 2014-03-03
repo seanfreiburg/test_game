@@ -12,8 +12,6 @@ class GameView():
 
   def update(self,game):
     self.screen.fill(Colors.WHITE)
-    game.block_group.update()
     game.block_group.draw(self.screen)
-    game.player_group.update()
     game.player_group.draw(self.screen)
     pygame.display.flip()

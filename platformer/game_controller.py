@@ -1,5 +1,6 @@
 __author__ = 'sean'
-import sys, pygame
+import sys
+import pygame
 from pygame.locals import *
 
 class GameController():
@@ -23,3 +24,11 @@ class GameController():
         game.player.k_down = down * -2
       elif event.key == K_ESCAPE:
         sys.exit(0)
+    game.block_group.update()
+    game.player_group.update()
+    non_passable_blocks = []
+    for sprite in game.block_group:
+      if not sprite.passable:
+        non_passable_blocks.append(sprite)
+    non_passable_block_group = pygame.sprite.Group(non_passable_blocks)
+    collisions = pygame.sprite.groupcollide(game.player_group,non_passable_block_group,False,True)

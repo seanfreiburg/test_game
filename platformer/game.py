@@ -2,7 +2,8 @@ __author__ = 'sean'
 from colors import Colors
 from box_sprite import BoxSprite
 from player_sprite import PlayerSprite
-import json,pygame
+import json
+import pygame
 
 
 class Game():
@@ -28,12 +29,18 @@ class Game():
       for entry in row:
         if entry == 0:
           color = Colors.RED
+          passable = True
         elif entry == 1:
           color = Colors.BLUE
+          passable = True
+        elif entry == 2:
+          color = Colors.GREEN
+          passable = False
         else:
           color = Colors.BLACK
+          passable = True
         # add on a new sprite at x*box_size, y*box_size
-        block = BoxSprite(color, (x, y))
+        block = BoxSprite(color, (x, y), passable)
         blocks.append(block)
         x += 1
       y += 1
