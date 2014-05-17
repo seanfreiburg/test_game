@@ -11,12 +11,13 @@ from camera import Camera
 
 
 class Game():
-  PLAYER_IMAGE = 'red.png'
+  PLAYER_IMAGES = ['red.png', 'red_walk_1.png', 'red_walk_2.png']
   MAP_FILE = 'map.txt'
 
   def __init__(self):
     self.map = self.load_map(self.MAP_FILE)
-    self.player = PlayerSprite(self.PLAYER_IMAGE, self.player_start_position, self.map_bounds)
+    self.player = PlayerSprite(self.PLAYER_IMAGES, self.player_start_position, self.map_bounds)
+    self.bullet_group = pygame.sprite.Group()
     self.player_group = pygame.sprite.Group(self.player)
 
   def load_map(self, map):
@@ -52,9 +53,9 @@ class Game():
         x += 1
       y += 1
 
-    total_level_width = len(map_array[0]) * Constants.BLOCK_SIZE  # calculate size of level in pixels
-    total_level_height = len(map_array) * Constants.BLOCK_SIZE  # maybe make 32 an constant
-    self.camera = Camera(Camera.complex_camera, total_level_width, total_level_height)
+    self.total_level_width = len(map_array[0]) * Constants.BLOCK_SIZE  # calculate size of level in pixels
+    self.total_level_height = len(map_array) * Constants.BLOCK_SIZE  # maybe make 32 an constant
+    self.camera = Camera(Camera.complex_camera, self.total_level_width, self.total_level_height)
 
     self.tile_group = pygame.sprite.Group(*blocks)
     self.player_start_position = (
