@@ -7,7 +7,7 @@ from bullet_sprite import BulletSprite
 
 class GameController():
   def __init__(self):
-    self.up = self.down = self.left = self.right = self.running = False
+    self.up = self.down = self.left = self.right = self.running = self.shooting = False
 
   def update(self, game):
 
@@ -25,7 +25,7 @@ class GameController():
       if e.type == KEYDOWN and e.key == K_SPACE:
         self.running = True
       if e.type == MOUSEBUTTONDOWN:
-        game.bullet_group.add(BulletSprite(game.camera.apply(game.player), pygame.mouse.get_pos()))
+        self.shooting = True
 
       if e.type == KEYUP and (e.key == K_UP or e.key == K_w):
         self.up = False
@@ -37,15 +37,15 @@ class GameController():
         self.left = False
       if e.type == KEYUP and e.key == K_SPACE:
         self.running = False
+      if e.type == MOUSEBUTTONUP:
+        self.shooting = False
       if e.type == KEYDOWN and e.key == K_ESCAPE:
         sys.exit(0)
 
+    if self.shooting:
+      game.add_bullet()
     game.camera.update(game.player)
     game.player.update(self.up, self.down, self.left, self.right, self.running, game.tile_group)
-    for bullet in game.bullet_group:
-      if not Rect(0, 0, game.total_level_width, game.total_level_height).contains(bullet.rect):
-        game.bullet_group.remove(bullet)
-      else:
-        bullet.update()
-    game.bullet_group.update()
+    game.update_bullets()
     game.tile_group.update()
+    game.cursor.update()
